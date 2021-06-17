@@ -4,6 +4,7 @@ import datetime as datetime
 from tqdm import tqdm as progressbar # Visual using progress bar
 import time
 import pyfiglet as art
+import openpyxl as excel
 
 
 name = str(input("\nEnter your name:"))
@@ -99,7 +100,7 @@ if (ans2 == "Y") or (ans2 == "y"):
               "Please Enter Excel File Location Manually.")
         excel_path = input("\n\nEnter Excel file path \n(without quotes)(with double slashes['\']):\n")
     try:
-        wb = excel.load_workbook(excel_path)
+        wb = excel.load_workbook("Excel Files\\"+excel_path)
         print('Connecting with sheets inside Excel...')
         sh1 = wb["A1 KTRA-IND"]
         sh2 = wb["A2 GANJ"]
