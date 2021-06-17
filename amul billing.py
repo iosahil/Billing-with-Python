@@ -1,11 +1,10 @@
 # Importing Libraries
 from tabulate import tabulate
 import datetime as datetime
-from tqdm import tqdm as progressbar # Visual using progress bar
+from tqdm import tqdm as progressbar  # Visual using progress bar
 import time
 import pyfiglet as art
 import openpyxl as excel
-
 
 name = str(input("\nEnter your name:"))
 name = name.capitalize()
@@ -37,21 +36,21 @@ print('\033[1m' + 'WELCOME TO BILLING MACHINE, ' + name.upper())
 
 
 rate = [['Gold', '500ml', 26.18],
-     ['Gold', '1L', 51.35],
-     ['Shakti', '500ml', 23.20],
-     ['Shakti', '1L', 45.40],
-     ['Cow', '500ml', 22.20],
-     ['Cow', '1L', 43.40],
-     ['Taaza', '500ml', 21.18],
-     ['Taaza', '1L', 41.40],
-     ['Amul Kool (Plastic)', '200ml * 30', 540.00],
-     ['Dahi', '200g', 13.86],
-     ['Dahi', '400g', 24.63],
-     ['Dahi', '1KG', 56.80],
-     ['Lassi (Packet)', '180ml', 9.10],
-     ['Paneer', '200g', 66.00],
-     ['Paneer', '1KG', 315.00]
-     ]
+        ['Gold', '1L', 51.35],
+        ['Shakti', '500ml', 23.20],
+        ['Shakti', '1L', 45.40],
+        ['Cow', '500ml', 22.20],
+        ['Cow', '1L', 43.40],
+        ['Taaza', '500ml', 21.18],
+        ['Taaza', '1L', 41.40],
+        ['Amul Kool (Plastic)', '200ml * 30', 540.00],
+        ['Dahi', '200g', 13.86],
+        ['Dahi', '400g', 24.63],
+        ['Dahi', '1KG', 56.80],
+        ['Lassi (Packet)', '180ml', 9.10],
+        ['Paneer', '200g', 66.00],
+        ['Paneer', '1KG', 315.00]
+        ]
 
 ans1 = input('Want to know rates? [Y/N] \n')
 if (ans1 == "Y") or (ans1 == "y"):
@@ -91,16 +90,18 @@ if (ans2 == "Y") or (ans2 == "y"):
     if ans3 == 2:
         dat = tomorrow = datetime.date.today().strftime("%d-%m-%Y") + datetime.timedelta(days=1).strftime("%d-%m-%Y")
     if ans3 == 3:
-        dat = manual_date = input("Enter Date Manually (DD-MM-YYYY):\n")
+        dat = manual_date = str(input("Enter Date Manually (DD-MM-YYYY):\n"))
     try:
-        excel_path = 'O-' + dat + '.xls'
+        excel_path = 'O-' + dat + '.xlsx'
+        wb = excel.load_workbook("Excel Files\\" + excel_path)
     except:
         print("ERROR\n"
               "Can't find Excel sheet with date - " + dat + ".\n"
-              "Please Enter Excel File Location Manually.")
-        excel_path = input("\n\nEnter Excel file path \n(without quotes)(with double slashes['\']):\n")
+                                                            "Please Enter Excel File Location Manually.")
+        excel_path = input("\n\nEnter Excel file path \n(without quotes)(with double slashes):\n")
+        wb = excel.load_workbook("Excel Files\\" + excel_path)
     try:
-        wb = excel.load_workbook("Excel Files\\"+excel_path)
+        print('Connected with Excel - ' + excel_path)
         print('Connecting with sheets inside Excel...')
         sh1 = wb["A1 KTRA-IND"]
         sh2 = wb["A2 GANJ"]
@@ -109,6 +110,7 @@ if (ans2 == "Y") or (ans2 == "y"):
         print('File successfully connected.\n')
     except:
         print("File path is invalid!")
+        exit()
 
     date_order_sheet = sh1["L1"].value
     print("Excel Order Sheet Date is ", date_order_sheet, '\n')
@@ -129,12 +131,28 @@ if (ans2 == "Y") or (ans2 == "y"):
     row = 5
     column = 1
     count = 1
+
+    sh1_list = []
+    while row < 33:
+        sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value], )
+        try:
+            unnecessary = sh1_list.index([count, None, None])
+            print(unnecessary)
+            # count -= 1
+        except:
+            ''
+
+        row += 1
+        count += 1
+
+    print(sh1_list)
     if sh == 1:
         print('Connected to', sh1)
         while row < 33:
             print(count)
             print("Store: ", sh1.cell(row, 2).value)
             print("Call: ", sh1.cell(row, 3).value, "\n")
+
             count += 1
             row += 1
     if sh == 2:
@@ -143,6 +161,7 @@ if (ans2 == "Y") or (ans2 == "y"):
             print(count)
             print("Store: ", sh2.cell(row, 2).value)
             print("Call: ", sh2.cell(row, 3).value, "\n")
+           #print(tabulate(sh2_list, headers=["Item", "Quantity", "Selling Price"], numalign="left"))
             count += 1
             row += 1
     if sh == 3:
