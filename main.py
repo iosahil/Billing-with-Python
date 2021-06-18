@@ -43,7 +43,7 @@ while user_pass != passcode and count < 3:
         if count == 3:
             print('Tumse na ho payega', name.lower(), ':)')
             print('\033[1m' + 'USER LOCKED OUT!!')
-            exit()
+
 
 print(Color.BOLD + 'WELCOME TO BILLING MACHINE, ' + name.upper() + Color.END)
 
@@ -106,7 +106,7 @@ if (ans2 == "Y") or (ans2 == "y"):
         dat = manual_date = str(input("\nEnter Date Manually (DD-MM-YYYY):"))
     try:
         excel_path = 'O-' + dat + '.xlsx'
-        wb = excel.load_workbook("Excel Files\\" + excel_path)
+        wb = excel.load_workbook("Excel Files/" + excel_path)
     except:
         print(Color.RED + "ERROR\n"
                           "Can't find Excel sheet with date - " + dat + ".\n"
@@ -123,19 +123,19 @@ if (ans2 == "Y") or (ans2 == "y"):
         print(Color.BLUE + Color.BOLD + 'File successfully connected.\n' + Color.END)
     except:
         print(Color.RED + "ERROR: File path is invalid!" + Color.END)
-        exit()
+
 
     date_order_sheet = sh1["L1"].value
     print("Excel Order Sheet Date is ", date_order_sheet, '\n')
 
     start = input("Start Taking Order? [Y/N]")
     if (start == "Y") or (start == "y"):
-        print("Let's Start taking orders,", name, "!")
+        print("Let's Start taking orders,", name, "!\n")
     else:
-        print('Bye,', name, '!')
-        exit()
+       print('Bye,', name, '!')
+       exit()
 
-    print(Color.BOLD+"[1]+ 'A1 KTRA-IND'\n"
+    print(Color.BOLD+"[1] 'A1 KTRA-IND'\n"
           "[2] 'A2 GANJ'\n"
           "[3] 'A3 BIDUPUR'\n"
           "[4] 'A4 MARAI'"+Color.END)
