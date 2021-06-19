@@ -5,6 +5,7 @@ from tqdm import tqdm as progressbar  # Visual using progress bar
 import time
 import pyfiglet as art
 import openpyxl as excel
+from sys import exit
 
 
 class Color:
@@ -37,13 +38,13 @@ while user_pass != passcode and count < 3:
         print('Access granted for', name.capitalize() + ".\n")
         break
     else:
-        print('Access denied. Try again ' + name.capitalize() + ".")
+        print('Access denied. Try again,' + name.capitalize() + ".")
         count += 1
         print('You have', 3 - count, 'counts left.\n')
         if count == 3:
-            print('Tumse na ho payega', name.lower(), ':)')
-            print('\033[1m' + 'USER LOCKED OUT!!')
-
+            print('Let the brain rest,', name.lower(), ':)')
+            print(Color.BOLD + 'USER LOCKED OUT!!' + Color.END)
+            exit()
 
 print(Color.BOLD + 'WELCOME TO BILLING MACHINE, ' + name.upper() + Color.END)
 
@@ -65,14 +66,14 @@ rate = [['Gold', '500ml', 26.18],
         ]
 
 ans1 = input('Want to know rates? [Y/N] \n')
-if (ans1 == "Y") or (ans1 == "y"):
+if (ans1.upper() == "Y") or (ans1 == 1):
     print(tabulate(rate, headers=[Color.BOLD + "Item", "Quantity", "Selling Price" + Color.END], numalign="left"))
     print('\nBahut sasta hai, \nWholesale price hai!!!! \n#Exclusively_On_Softline')
 else:
     print('Okay,', name, ':)')
 
 ans2 = input('\nWant to start billing machine? [Y/N] \n')
-if (ans2 == "Y") or (ans2 == "y"):
+if (ans2.upper() == "Y") or (ans2 == 1):
     try:
         for i in progressbar(range(10),
                              desc='Opening with superfast speed',
@@ -114,7 +115,7 @@ if (ans2 == "Y") or (ans2 == "y"):
         excel_path = input("\n\nEnter Excel file path \n(without quotes)(with double slashes):\n")
         wb = excel.load_workbook(excel_path)
     try:
-        print('Connected with Excel - ' +Color.BOLD + excel_path+Color.END)
+        print('Connected with Excel - ' + Color.BOLD + excel_path + Color.END)
         print('Connecting with sheets inside Excel...')
         sh1 = wb["A1 KTRA-IND"]
         sh2 = wb["A2 GANJ"]
@@ -124,7 +125,6 @@ if (ans2 == "Y") or (ans2 == "y"):
     except:
         print(Color.RED + "ERROR: File path is invalid!" + Color.END)
 
-
     date_order_sheet = sh1["L1"].value
     print("Excel Order Sheet Date is ", date_order_sheet, '\n')
 
@@ -132,13 +132,13 @@ if (ans2 == "Y") or (ans2 == "y"):
     if (start == "Y") or (start == "y"):
         print("Let's Start taking orders,", name, "!\n")
     else:
-       print('Bye,', name, '!')
-       exit()
+        print('Bye,', name, '!')
+        exit()
 
-    print(Color.BOLD+"[1] 'A1 KTRA-IND'\n"
-          "[2] 'A2 GANJ'\n"
-          "[3] 'A3 BIDUPUR'\n"
-          "[4] 'A4 MARAI'"+Color.END)
+    print(Color.BOLD + "[1] 'A1 KTRA-IND'\n"
+                       "[2] 'A2 GANJ'\n"
+                       "[3] 'A3 BIDUPUR'\n"
+                       "[4] 'A4 MARAI'" + Color.END)
     sh = int(input("Enter 1 or 2 or 3 or 4:\n"))
 
     row = 5
