@@ -65,7 +65,11 @@ while user_pass != passcode and count < 3:  # Ask password from user thrice
 
 print(Color.BOLD + 'WELCOME TO BILLING MACHINE, ' + name.upper() + Color.END)
 
-resp = client.messages.create(body="Welcome to Sahil's program, "+name.capitalize(), from_='+13126754624', to=sendto)
+# try:
+#     resp = client.messages.create(body="Welcome to Sahil's program, " + name.capitalize(), from_='+13126754624',
+#                                   to=sendto)
+# except:
+#     print('Phone Number invalid or not verified!')
 
 rate = [['Gold', '500ml', 26.18],
         ['Gold', '1L', 51.35],
@@ -178,11 +182,19 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
         count = 0
         while count < 30:
             ans4 = int(input('\nENTER NUMBER: \n')) - 1
-            resp = client.messages.create(body="\nStore: " + str(sh1_list[ans4][1]) + "\nCall: " + str(sh1_list[ans4][2]),
-                                          from_='+13126754624', to=sendto)
-            print('---NOTIFICATION SENT')
+            # resp = client.messages.create(
+            #     body="\nStore: " + str(sh1_list[ans4][1]) + "\nCall: " + str(sh1_list[ans4][2]),
+            #     from_='+13126754624', to=sendto)
+            # print('---NOTIFICATION SENT')
 
+            print('\n\n' + Color.BOLD + sh1_list[ans4][1] + '\n' + str(sh1_list[ans4][2]) + Color.END)
+            print('\nEnter Orders: \n')
+            count2 = 0
+            while count2 < len(rate):
+                print('[' + str(count2 + 1) + '] ' + str(rate[count2][0]) + ' (' + str(rate[count2][1]) + ') - ' + str(rate[count2][2]))
+                count2 += 1
 
+            count += 1
         else:
             print('Attempts Exceeded, Try Again')
 
