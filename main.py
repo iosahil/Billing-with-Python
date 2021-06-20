@@ -1,13 +1,4 @@
-# Importing Libraries
-from tabulate import tabulate
-import datetime as datetime
-from tqdm import tqdm as progressbar  # Visual using progress bar
-import time
-import pyfiglet as art
-import openpyxl as excel
-from sys import exit
-
-
+# Declaring Color Values
 class Color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
@@ -21,22 +12,40 @@ class Color:
     END = '\033[0m'
 
 
+# Importing Libraries
+try:
+    from tabulate import tabulate
+    import datetime as datetime
+    from tqdm import tqdm as progressbar  # Visual using progress bar
+    import time
+    import pyfiglet as art
+    import openpyxl as excel
+    from sys import exit
+except:
+    print(Color.BOLD + 'ERROR\n' + Color.END + 'Python Packages not found!')
+    print("\nInstall Python Packages to get started")
+    exit()
+
 name = str(input("\nEnter your name:"))
 name = name.capitalize()
 print('\nHi,', Color.BOLD + name.capitalize() + Color.END)
 
-passcode = 0x75AB
-count = 0
-user_pass = ""
-while user_pass != passcode and count < 3:
+passcode = 0x75AB  # Password in Hex ('0x' - tells python, value is in hex)
+
+count = 0  # Count user's invalid attempts
+user_pass = ""  # Value received by user
+
+# Password Check
+while user_pass != passcode and count < 3:  # Ask password from user thrice
     try:
         user_pass = int(input('Enter PIN:\n'))
     except:
-        print("\nERROR\n•Password can't consists of alphabets.\n•Password must be 5 digits.\n")
+        print(
+            "\nERROR\n•Password can't consists of alphabets.\n•Password must be 5 digits.\n")  # If the value isn't numeric
 
     if user_pass == passcode:
         print('Access granted for', name.capitalize() + ".\n")
-        break
+        break  # Let's the loop end & starts new block
     else:
         print('Access denied. Try again,' + name.capitalize() + ".")
         count += 1
@@ -45,6 +54,7 @@ while user_pass != passcode and count < 3:
             print('Let the brain rest,', name.lower(), ':)')
             print(Color.BOLD + 'USER LOCKED OUT!!' + Color.END)
             exit()
+            # Throws user out of script
 
 print(Color.BOLD + 'WELCOME TO BILLING MACHINE, ' + name.upper() + Color.END)
 
@@ -63,17 +73,17 @@ rate = [['Gold', '500ml', 26.18],
         ['Lassi (Packet)', '180ml', 9.10],
         ['Paneer', '200g', 66.00],
         ['Paneer', '1KG', 315.00]
-        ]
+        ]  # Rate if products
 
 ans1 = input('Want to know rates? [Y/N] \n')
-if (ans1.upper() == "Y") or (ans1 == 1):
+if (ans1.upper() == "Y") or (ans1 == "1"):
     print(tabulate(rate, headers=[Color.BOLD + "Item", "Quantity", "Selling Price" + Color.END], numalign="left"))
-    print('\nBahut sasta hai, \nWholesale price hai!!!! \n#Exclusively_On_Softline')
+    print('\n#Exclusively_On_Softline')
 else:
     print('Okay,', name, ':)')
 
 ans2 = input('\nWant to start billing machine? [Y/N] \n')
-if (ans2.upper() == "Y") or (ans2 == 1):
+if (ans2.upper() == "Y") or (ans2 == "1"):
     try:
         for i in progressbar(range(10),
                              desc='Opening with superfast speed',
@@ -95,7 +105,8 @@ if (ans2.upper() == "Y") or (ans2 == 1):
     print('Connect to EXCEL of date:\n')
     print(Color.BOLD + "[1] Today\n"
                        "[2] Yesterday\n"
-                       "[3] Enter Date Manually\n" + Color.END)
+                       "[3] Enter Date Manually\n"
+                       "[4] USE SAMPLE FILE\n" + Color.END)
     ans3 = int(input("Enter 1 or 2 or 3:\n"))
     dat = ''
     if ans3 == 1:
@@ -105,6 +116,10 @@ if (ans2.upper() == "Y") or (ans2 == 1):
         dat = yesterday.strftime("%d-%m-%Y")
     if ans3 == 3:
         dat = manual_date = str(input("\nEnter Date Manually (DD-MM-YYYY):"))
+    if ans3 == 4:
+        dat = "15-06-2021"
+        print("Sample Excel File Date is: "+ dat)
+        print("Connecting...\n")
     try:
         excel_path = 'O-' + dat + '.xlsx'
         wb = excel.load_workbook("Excel Files/" + excel_path)
@@ -112,7 +127,7 @@ if (ans2.upper() == "Y") or (ans2 == 1):
         print(Color.RED + "ERROR\n"
                           "Can't find Excel sheet with date - " + dat + ".\n"
                                                                         "Please Enter Excel File Location Manually." + Color.END)
-        excel_path = input("\n\nEnter Excel file path \n(without quotes)(with double slashes):\n")
+        excel_path = input("\n\nEnter Excel File Path \n(without quotes)(with double slashes):\n")
         wb = excel.load_workbook(excel_path)
     try:
         print('Connected with Excel - ' + Color.BOLD + excel_path + Color.END)
@@ -125,11 +140,12 @@ if (ans2.upper() == "Y") or (ans2 == 1):
     except:
         print(Color.RED + "ERROR: File path is invalid!" + Color.END)
 
+    # After Excel Connected
     date_order_sheet = sh1["L1"].value
-    print("Excel Order Sheet Date is ", date_order_sheet, '\n')
+    print("EXCEL ORDER SHEET ", Color.BOLD + date_order_sheet + Color.END, '\n')
 
     start = input("Start Taking Order? [Y/N]")
-    if (start == "Y") or (start == "y"):
+    if (start.upper() == "Y") or (start == "1"):
         print("Let's Start taking orders,", name, "!\n")
     else:
         print('Bye,', name, '!')
@@ -146,35 +162,27 @@ if (ans2.upper() == "Y") or (ans2 == 1):
     count = 1
 
     sh1_list = []
+    unnecessary_sh1 = []
     while row < 33:
-        sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value], )
-        try:
-            unnecessary = sh1_list.index([count, None, None])
-            print(unnecessary)
-            # count -= 1
-        except:
-            ''
-
+        sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value])
         row += 1
         count += 1
 
-    print(sh1_list)
+    print(tabulate(sh1_list, headers=["SN No.", "Store", "Phone No."]))
     if sh == 1:
-        print('Connected to', sh1)
+        print('\nConnected to', sh1)
+        sh1_list = []
+        unnecessary_sh1 = []
         while row < 33:
-            print(count)
-            print("Store: ", sh1.cell(row, 2).value)
-            print("Call: ", sh1.cell(row, 3).value, "\n")
-
-            count += 1
+            sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value])
             row += 1
+            count += 1
     if sh == 2:
         print('Connected to', sh2)
         while row < 33:
             print(count)
             print("Store: ", sh2.cell(row, 2).value)
             print("Call: ", sh2.cell(row, 3).value, "\n")
-            # print(tabulate(sh2_list, headers=["Item", "Quantity", "Selling Price"], numalign="left"))
             count += 1
             row += 1
     if sh == 3:
@@ -195,5 +203,5 @@ if (ans2.upper() == "Y") or (ans2 == 1):
             row += 1
 
 else:
-    print('Gaand mara bsdk ' + name)
+    print('Great, ' + name)
     exit()
