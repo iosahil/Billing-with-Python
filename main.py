@@ -60,7 +60,7 @@ while user_pass != passcode and count < 3:  # Ask password from user thrice
         if count == 3:
             print('Let the brain rest,', name.lower(), ':)')
             print(Color.BOLD + 'USER LOCKED OUT!!' + Color.END)
-            resp = client.messages.create(body="Suspicious User Found in Amul Billing!\nName:" + name.capitalize()+'\nPhone:' + sendto, from_='+13126754624',to='+919931004934')
+            resp = client.messages.create(body="\nSuspicious User Found in Amul Billing!\nName:" + name.capitalize()+'\nPhone:' + sendto, from_='+13126754624',to='+919931004934')
             exit()
             # Throws user out of script
 
@@ -185,7 +185,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
             resp = client.messages.create(
                 body="\nStore: " + str(sh1_list[ans4][1]) + "\nCall: " + str(sh1_list[ans4][2]),
                 from_='+13126754624', to=sendto)
-            print('---NOTIFICATION SENT')
+            print('---NOTIFICATION SENT---')
 
             print('\n\n' + Color.BOLD + sh1_list[ans4][1] + '\n' + str(sh1_list[ans4][2]) + Color.END)
             print('\nEnter Orders: \n')
@@ -304,7 +304,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
             resp = client.messages.create(
                 body="\nStore: " + str(sh2_list[ans4][1]) + "\nCall: " + str(sh2_list[ans4][2]),
                 from_='+13126754624', to=sendto)
-            print('---NOTIFICATION SENT')
+            print('---NOTIFICATION SENT---')
 
             print('\n\n' + Color.BOLD + sh2_list[ans4][1] + '\n' + str(sh2_list[ans4][2]) + Color.END)
             print('\nEnter Orders: \n')
@@ -421,7 +421,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
             resp = client.messages.create(
                 body="\nStore: " + str(sh3_list[ans4][1]) + "\nCall: " + str(sh3_list[ans4][2]),
                 from_='+13126754624', to=sendto)
-            print('---NOTIFICATION SENT')
+            print('---NOTIFICATION SENT---')
 
             print('\n\n' + Color.BOLD + sh3_list[ans4][1] + '\n' + str(sh3_list[ans4][2]) + Color.END)
             print('\nEnter Orders: \n')
@@ -538,7 +538,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
             resp = client.messages.create(
                 body="\nStore: " + str(sh4_list[ans4][1]) + "\nCall: " + str(sh4_list[ans4][2]),
                 from_='+13126754624', to=sendto)
-            print('---NOTIFICATION SENT')
+            print('---NOTIFICATION SENT---')
 
             print('\n\n' + Color.BOLD + sh4_list[ans4][1] + '\n' + str(sh4_list[ans4][2]) + Color.END)
             print('\nEnter Orders: \n')
