@@ -27,7 +27,7 @@ except:
     print("\nInstall Python Packages to get started!")
     exit()
 
-name = str(input("\nEnter your name:"))
+name = str(input("\nEnter Your Name:"))
 name = name.capitalize()
 print('\nHi,', Color.BOLD + name.capitalize() + Color.END)
 
@@ -60,16 +60,17 @@ while user_pass != passcode and count < 3:  # Ask password from user thrice
         if count == 3:
             print('Let the brain rest,', name.lower(), ':)')
             print(Color.BOLD + 'USER LOCKED OUT!!' + Color.END)
+            resp = client.messages.create(body="Suspicious User Found in Amul Billing!\nName: " + name.capitalize()+'\nPhone: ' + sendto, from_='+13126754624',to='+919931004934')
             exit()
             # Throws user out of script
 
 print(Color.BOLD + 'WELCOME TO BILLING MACHINE, ' + name.upper() + Color.END)
 
-# try:
-#     resp = client.messages.create(body="Welcome to Sahil's program, " + name.capitalize(), from_='+13126754624',
-#                                   to=sendto)
-# except:
-#     print('Phone Number invalid or not verified!')
+try:
+    resp = client.messages.create(body="Welcome to Sahil's program, " + name.capitalize(), from_='+13126754624',
+                                  to=sendto)
+except:
+    print('Phone Number invalid or not verified!')
 
 rate = [['Gold', '500ml', 26.18],
         ['Gold', '1L', 51.35],
@@ -95,13 +96,13 @@ if (ans1.upper() == "Y") or (ans1 == "1"):
 else:
     print('Okay,', name, ':)')
 
-ans2 = input('\nWant to start billing machine? [Y/N] \n')
+ans2 = input('\nWant to start billing machine? [Y/N]\n')
 
 if (ans2.upper() == "Y") or (ans2 == "1"):
 
     # Progress Bar for vibes...
     for i in progressbar(range(10),
-                         desc='Opening with superfast speed',
+                         desc='Opening...',
                          ascii=False, ncols=75):
         time.sleep(0.25)
     print("Complete.\n")
@@ -171,57 +172,475 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
     count = 1
 
     if sh == 1:
-        print('\nConnected to', sh1)
         sh1_list = []
         while row < 33:
             sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value])
             row += 1
             count += 1
-        print(tabulate(sh1_list, headers=["SN No.", "Store", "Phone No."]))
 
         count = 0
         while count < 30:
+            print(tabulate(sh1_list, headers=["SN No.", "Store", "Phone No."]))
             ans4 = int(input('\nENTER NUMBER: \n')) - 1
-            # resp = client.messages.create(
-            #     body="\nStore: " + str(sh1_list[ans4][1]) + "\nCall: " + str(sh1_list[ans4][2]),
-            #     from_='+13126754624', to=sendto)
-            # print('---NOTIFICATION SENT')
+            resp = client.messages.create(
+                body="\nStore: " + str(sh1_list[ans4][1]) + "\nCall: " + str(sh1_list[ans4][2]),
+                from_='+13126754624', to=sendto)
+            print('---NOTIFICATION SENT')
 
             print('\n\n' + Color.BOLD + sh1_list[ans4][1] + '\n' + str(sh1_list[ans4][2]) + Color.END)
             print('\nEnter Orders: \n')
             count2 = 0
+            print(Color.BOLD + '[0] No Order')
             while count2 < len(rate):
-                print('[' + str(count2 + 1) + '] ' + str(rate[count2][0]) + ' (' + str(rate[count2][1]) + ') - ' + str(rate[count2][2]))
+                print('[' + str(count2 + 1) + '] ' + str(rate[count2][0]) + ' (' + str(rate[count2][1]) + ') - ' + str(
+                    rate[count2][2]) + Color.END)
                 count2 += 1
 
+            count3 = 0
+            while count3 == 0:
+                order = int(input(Color.BOLD + '\nEnter(0-15) :\n' + Color.END))
+                row1 = ans4 + 5
+                g500 = 0.0
+                g1000 = 0.0
+                s500 = 0.0
+                s1000 = 0.0
+                c500 = 0.0
+                c1000 = 0.0
+                t500 = 0.0
+                t1000 = 0.0
+                kool_plastic = 0.0
+                d200 = 0.0
+                d400 = 0.0
+                d1000 = 0.0
+                lp180 = 0.0
+                p200 = 0.0
+                p1000 = 0.0
+
+                if order == 0:
+                    sh1.cell(row=row1, column=4, value='0')
+                if order == 1:
+                    g500 = int(input('Enter no. of Gold - 500ml: \n'))
+                    sh1.cell(row=row1, column=4, value=g500)
+                if order == 2:
+                    g1000 = float(input('Enter no. of Gold - 1L: \n'))
+                    sh1.cell(row=row1, column=5, value=g1000)
+                if order == 3:
+                    s500 = float(input('Enter no. of Shakti - 500ml: \n'))
+                    sh1.cell(row=row1, column=6, value=s500)
+                if order == 4:
+                    s1000 = float(input('Enter no. of Shakti - 1L: \n'))
+                    sh1.cell(row=row1, column=7, value=s1000)
+                if order == 5:
+                    c500 = float(input('Enter no. of Cow - 500ml: \n'))
+                    sh1.cell(row=row1, column=8, value=c500)
+                if order == 6:
+                    c1000 = float(input('Enter no. of Cow - 1L: \n'))
+                    sh1.cell(row=row1, column=9, value=c1000)
+                if order == 7:
+                    t500 = float(input('Enter no. of Taaza - 500ml: \n'))
+                    sh1.cell(row=row1, column=10, value=t500)
+                if order == 8:
+                    t1000 = float(input('Enter no. of Taaza - 1L: \n'))
+                    sh1.cell(row=row1, column=11, value=t1000)
+                if order == 9:
+                    kool_plastic = float(input('Enter no. of Amul Kool (Plastic) - 200ml X 30: \n'))
+                    sh1.cell(row=row1, column=12, value=kool_plastic)
+                if order == 10:
+                    d200 = float(input('Enter no. of Dahi - 200ml: \n'))
+                    sh1.cell(row=row1, column=13, value=d200)
+                if order == 11:
+                    d400 = float(input('Enter no. of Dahi - 400ml: \n'))
+                    sh1.cell(row=row1, column=14, value=d400)
+                if order == 12:
+                    d1000 = float(input('Enter no. of Dahi - 1KG: \n'))
+                    sh1.cell(row=row1, column=15, value=d1000)
+                if order == 13:
+                    lp180 = float(input('Enter no. of Lassi(Packet) - 180ml: \n'))
+                    sh1.cell(row=row1, column=16, value=lp180)
+                if order == 14:
+                    p200 = float(input('Enter no. of Paneer - 200g: \n'))
+                    sh1.cell(row=row1, column=17, value=p200)
+                if order == 15:
+                    p1000 = float(input('Enter no. of Paneer - 1KG: \n'))
+                    sh1.cell(row=row1, column=18, value=p1000)
+                skip = input('More Orders from ' + sh1_list[ans4][1] + '? [Y/N]')
+                if (skip.upper() == "Y") or (skip == "1"):
+                    count3 = 0
+                else:
+                    try:
+                        wb.save("Excel Files/" + excel_path)
+                        print('Saved')
+                    except:
+                        print(Color.RED + 'Close excel if open.' + Color.END)
+                    count3 = 1
+
+                    if sh1.cell(row1, 4) != 0:
+                        print('Calculating Cost...')
+                        cost_of_order = g500 * rate[0][2] + g1000 * rate[1][2] + s500 * rate[2][2] + s1000 * rate[3][
+                            2] + c500 * rate[4][2] + c1000 * rate[5][2] + t500 * rate[6][2] + t1000 * rate[7][
+                                            2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
+                                            2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
+                                            2] + p1000 * rate[14][2]
+                        print(cost_of_order)
+                    break
+
             count += 1
+
         else:
             print('Attempts Exceeded, Try Again')
 
     if sh == 2:
         print('Connected to', sh2)
+        sh2_list = []
         while row < 33:
-            print(count)
-            print("Store: ", sh2.cell(row, 2).value)
-            print("Call: ", sh2.cell(row, 3).value, "\n")
-            count += 1
+            sh2_list.append([count, sh2.cell(row, 2).value, sh2.cell(row, 3).value])
             row += 1
+            count += 1
+
+        count = 0
+        while count < 30:
+            print(tabulate(sh2_list, headers=["SN No.", "Store", "Phone No."]))
+            ans4 = int(input('\nENTER NUMBER: \n')) - 1
+            resp = client.messages.create(
+                body="\nStore: " + str(sh2_list[ans4][1]) + "\nCall: " + str(sh2_list[ans4][2]),
+                from_='+13126754624', to=sendto)
+            print('---NOTIFICATION SENT')
+
+            print('\n\n' + Color.BOLD + sh2_list[ans4][1] + '\n' + str(sh2_list[ans4][2]) + Color.END)
+            print('\nEnter Orders: \n')
+            count2 = 0
+            print(Color.BOLD + '[0] No Order')
+            while count2 < len(rate):
+                print('[' + str(count2 + 1) + '] ' + str(rate[count2][0]) + ' (' + str(rate[count2][1]) + ') - ' + str(
+                    rate[count2][2]) + Color.END)
+                count2 += 1
+
+            count3 = 0
+            while count3 == 0:
+                order = int(input(Color.BOLD + '\nEnter(0-15) :\n' + Color.END))
+                row1 = ans4 + 5
+                g500 = 0.0
+                g1000 = 0.0
+                s500 = 0.0
+                s1000 = 0.0
+                c500 = 0.0
+                c1000 = 0.0
+                t500 = 0.0
+                t1000 = 0.0
+                kool_plastic = 0.0
+                d200 = 0.0
+                d400 = 0.0
+                d1000 = 0.0
+                lp180 = 0.0
+                p200 = 0.0
+                p1000 = 0.0
+
+                if order == 0:
+                    sh2.cell(row=row1, column=4, value='0')
+                if order == 1:
+                    g500 = int(input('Enter no. of Gold - 500ml: \n'))
+                    sh2.cell(row=row1, column=4, value=g500)
+                if order == 2:
+                    g1000 = float(input('Enter no. of Gold - 1L: \n'))
+                    sh2.cell(row=row1, column=5, value=g1000)
+                if order == 3:
+                    s500 = float(input('Enter no. of Shakti - 500ml: \n'))
+                    sh2.cell(row=row1, column=6, value=s500)
+                if order == 4:
+                    s1000 = float(input('Enter no. of Shakti - 1L: \n'))
+                    sh2.cell(row=row1, column=7, value=s1000)
+                if order == 5:
+                    c500 = float(input('Enter no. of Cow - 500ml: \n'))
+                    sh2.cell(row=row1, column=8, value=c500)
+                if order == 6:
+                    c1000 = float(input('Enter no. of Cow - 1L: \n'))
+                    sh2.cell(row=row1, column=9, value=c1000)
+                if order == 7:
+                    t500 = float(input('Enter no. of Taaza - 500ml: \n'))
+                    sh2.cell(row=row1, column=10, value=t500)
+                if order == 8:
+                    t1000 = float(input('Enter no. of Taaza - 1L: \n'))
+                    sh2.cell(row=row1, column=11, value=t1000)
+                if order == 9:
+                    kool_plastic = float(input('Enter no. of Amul Kool (Plastic) - 200ml X 30: \n'))
+                    sh2.cell(row=row1, column=12, value=kool_plastic)
+                if order == 10:
+                    d200 = float(input('Enter no. of Dahi - 200ml: \n'))
+                    sh2.cell(row=row1, column=13, value=d200)
+                if order == 11:
+                    d400 = float(input('Enter no. of Dahi - 400ml: \n'))
+                    sh2.cell(row=row1, column=14, value=d400)
+                if order == 12:
+                    d1000 = float(input('Enter no. of Dahi - 1KG: \n'))
+                    sh2.cell(row=row1, column=15, value=d1000)
+                if order == 13:
+                    lp180 = float(input('Enter no. of Lassi(Packet) - 180ml: \n'))
+                    sh2.cell(row=row1, column=16, value=lp180)
+                if order == 14:
+                    p200 = float(input('Enter no. of Paneer - 200g: \n'))
+                    sh2.cell(row=row1, column=17, value=p200)
+                if order == 15:
+                    p1000 = float(input('Enter no. of Paneer - 1KG: \n'))
+                    sh2.cell(row=row1, column=18, value=p1000)
+                skip = input('More Orders from ' + sh2_list[ans4][1] + '? [Y/N]')
+                if (skip.upper() == "Y") or (skip == "1"):
+                    count3 = 0
+                else:
+                    try:
+                        wb.save("Excel Files/" + excel_path)
+                        print('Saved')
+                    except:
+                        print(Color.RED + 'Close excel if open.' + Color.END)
+                    count3 = 1
+
+                    if sh2.cell(row1, 4) != 0:
+                        print('Calculating Cost...')
+                        cost_of_order = g500 * rate[0][2] + g1000 * rate[1][2] + s500 * rate[2][2] + s1000 * rate[3][
+                            2] + c500 * rate[4][2] + c1000 * rate[5][2] + t500 * rate[6][2] + t1000 * rate[7][
+                                            2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
+                                            2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
+                                            2] + p1000 * rate[14][2]
+                        print(cost_of_order)
+                    break
+
+            count += 1
+
+        else:
+            print('Attempts Exceeded, Try Again')
     if sh == 3:
-        print('Connected to', sh3)
+        sh3_list = []
         while row < 33:
-            print(count)
-            print("Store: ", sh2.cell(row, 2).value)
-            print("Call: ", sh2.cell(row, 3).value, "\n")
-            count += 1
+            sh3_list.append([count, sh3.cell(row, 2).value, sh3.cell(row, 3).value])
             row += 1
+            count += 1
+
+        count = 0
+        while count < 30:
+            print(tabulate(sh3_list, headers=["SN No.", "Store", "Phone No."]))
+            ans4 = int(input('\nENTER NUMBER: \n')) - 1
+            resp = client.messages.create(
+                body="\nStore: " + str(sh3_list[ans4][1]) + "\nCall: " + str(sh3_list[ans4][2]),
+                from_='+13126754624', to=sendto)
+            print('---NOTIFICATION SENT')
+
+            print('\n\n' + Color.BOLD + sh3_list[ans4][1] + '\n' + str(sh3_list[ans4][2]) + Color.END)
+            print('\nEnter Orders: \n')
+            count2 = 0
+            print(Color.BOLD + '[0] No Order')
+            while count2 < len(rate):
+                print('[' + str(count2 + 1) + '] ' + str(rate[count2][0]) + ' (' + str(rate[count2][1]) + ') - ' + str(
+                    rate[count2][2]) + Color.END)
+                count2 += 1
+
+            count3 = 0
+            while count3 == 0:
+                order = int(input(Color.BOLD + '\nEnter(0-15) :\n' + Color.END))
+                row1 = ans4 + 5
+                g500 = 0.0
+                g1000 = 0.0
+                s500 = 0.0
+                s1000 = 0.0
+                c500 = 0.0
+                c1000 = 0.0
+                t500 = 0.0
+                t1000 = 0.0
+                kool_plastic = 0.0
+                d200 = 0.0
+                d400 = 0.0
+                d1000 = 0.0
+                lp180 = 0.0
+                p200 = 0.0
+                p1000 = 0.0
+
+                if order == 0:
+                    sh3.cell(row=row1, column=4, value='0')
+                if order == 1:
+                    g500 = int(input('Enter no. of Gold - 500ml: \n'))
+                    sh3.cell(row=row1, column=4, value=g500)
+                if order == 2:
+                    g1000 = float(input('Enter no. of Gold - 1L: \n'))
+                    sh3.cell(row=row1, column=5, value=g1000)
+                if order == 3:
+                    s500 = float(input('Enter no. of Shakti - 500ml: \n'))
+                    sh3.cell(row=row1, column=6, value=s500)
+                if order == 4:
+                    s1000 = float(input('Enter no. of Shakti - 1L: \n'))
+                    sh3.cell(row=row1, column=7, value=s1000)
+                if order == 5:
+                    c500 = float(input('Enter no. of Cow - 500ml: \n'))
+                    sh3.cell(row=row1, column=8, value=c500)
+                if order == 6:
+                    c1000 = float(input('Enter no. of Cow - 1L: \n'))
+                    sh3.cell(row=row1, column=9, value=c1000)
+                if order == 7:
+                    t500 = float(input('Enter no. of Taaza - 500ml: \n'))
+                    sh3.cell(row=row1, column=10, value=t500)
+                if order == 8:
+                    t1000 = float(input('Enter no. of Taaza - 1L: \n'))
+                    sh3.cell(row=row1, column=11, value=t1000)
+                if order == 9:
+                    kool_plastic = float(input('Enter no. of Amul Kool (Plastic) - 200ml X 30: \n'))
+                    sh3.cell(row=row1, column=12, value=kool_plastic)
+                if order == 10:
+                    d200 = float(input('Enter no. of Dahi - 200ml: \n'))
+                    sh3.cell(row=row1, column=13, value=d200)
+                if order == 11:
+                    d400 = float(input('Enter no. of Dahi - 400ml: \n'))
+                    sh3.cell(row=row1, column=14, value=d400)
+                if order == 12:
+                    d1000 = float(input('Enter no. of Dahi - 1KG: \n'))
+                    sh3.cell(row=row1, column=15, value=d1000)
+                if order == 13:
+                    lp180 = float(input('Enter no. of Lassi(Packet) - 180ml: \n'))
+                    sh3.cell(row=row1, column=16, value=lp180)
+                if order == 14:
+                    p200 = float(input('Enter no. of Paneer - 200g: \n'))
+                    sh3.cell(row=row1, column=17, value=p200)
+                if order == 15:
+                    p1000 = float(input('Enter no. of Paneer - 1KG: \n'))
+                    sh3.cell(row=row1, column=18, value=p1000)
+                skip = input('More Orders from ' + sh3_list[ans4][1] + '? [Y/N]')
+                if (skip.upper() == "Y") or (skip == "1"):
+                    count3 = 0
+                else:
+                    try:
+                        wb.save("Excel Files/" + excel_path)
+                        print('Saved')
+                    except:
+                        print(Color.RED + 'Close excel if open.' + Color.END)
+                    count3 = 1
+
+                    if sh3.cell(row1, 4) != 0:
+                        print('Calculating Cost...')
+                        cost_of_order = g500 * rate[0][2] + g1000 * rate[1][2] + s500 * rate[2][2] + s1000 * rate[3][
+                            2] + c500 * rate[4][2] + c1000 * rate[5][2] + t500 * rate[6][2] + t1000 * rate[7][
+                                            2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
+                                            2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
+                                            2] + p1000 * rate[14][2]
+                        print(cost_of_order)
+                    break
+
+            count += 1
+
+        else:
+            print('Attempts Exceeded, Try Again')
     if sh == 4:
-        print('Connected to', sh4)
+        sh4_list = []
         while row < 33:
-            print(count)
-            print("Store: ", sh4.cell(row, 2).value)
-            print("Call: ", sh4.cell(row, 3).value, "\n")
-            count += 1
+            sh4_list.append([count, sh4.cell(row, 2).value, sh4.cell(row, 3).value])
             row += 1
+            count += 1
+
+        count = 0
+        while count < 30:
+            print(tabulate(sh4_list, headers=["SN No.", "Store", "Phone No."]))
+            ans4 = int(input('\nENTER NUMBER: \n')) - 1
+            resp = client.messages.create(
+                body="\nStore: " + str(sh4_list[ans4][1]) + "\nCall: " + str(sh4_list[ans4][2]),
+                from_='+13126754624', to=sendto)
+            print('---NOTIFICATION SENT')
+
+            print('\n\n' + Color.BOLD + sh4_list[ans4][1] + '\n' + str(sh4_list[ans4][2]) + Color.END)
+            print('\nEnter Orders: \n')
+            count2 = 0
+            print(Color.BOLD + '[0] No Order')
+            while count2 < len(rate):
+                print('[' + str(count2 + 1) + '] ' + str(rate[count2][0]) + ' (' + str(rate[count2][1]) + ') - ' + str(
+                    rate[count2][2]) + Color.END)
+                count2 += 1
+
+            count3 = 0
+            while count3 == 0:
+                order = int(input(Color.BOLD + '\nEnter(0-15) :\n' + Color.END))
+                row1 = ans4 + 5
+                g500 = 0.0
+                g1000 = 0.0
+                s500 = 0.0
+                s1000 = 0.0
+                c500 = 0.0
+                c1000 = 0.0
+                t500 = 0.0
+                t1000 = 0.0
+                kool_plastic = 0.0
+                d200 = 0.0
+                d400 = 0.0
+                d1000 = 0.0
+                lp180 = 0.0
+                p200 = 0.0
+                p1000 = 0.0
+
+                if order == 0:
+                    sh4.cell(row=row1, column=4, value='0')
+                if order == 1:
+                    g500 = int(input('Enter no. of Gold - 500ml: \n'))
+                    sh4.cell(row=row1, column=4, value=g500)
+                if order == 2:
+                    g1000 = float(input('Enter no. of Gold - 1L: \n'))
+                    sh4.cell(row=row1, column=5, value=g1000)
+                if order == 3:
+                    s500 = float(input('Enter no. of Shakti - 500ml: \n'))
+                    sh4.cell(row=row1, column=6, value=s500)
+                if order == 4:
+                    s1000 = float(input('Enter no. of Shakti - 1L: \n'))
+                    sh4.cell(row=row1, column=7, value=s1000)
+                if order == 5:
+                    c500 = float(input('Enter no. of Cow - 500ml: \n'))
+                    sh4.cell(row=row1, column=8, value=c500)
+                if order == 6:
+                    c1000 = float(input('Enter no. of Cow - 1L: \n'))
+                    sh4.cell(row=row1, column=9, value=c1000)
+                if order == 7:
+                    t500 = float(input('Enter no. of Taaza - 500ml: \n'))
+                    sh4.cell(row=row1, column=10, value=t500)
+                if order == 8:
+                    t1000 = float(input('Enter no. of Taaza - 1L: \n'))
+                    sh4.cell(row=row1, column=11, value=t1000)
+                if order == 9:
+                    kool_plastic = float(input('Enter no. of Amul Kool (Plastic) - 200ml X 30: \n'))
+                    sh4.cell(row=row1, column=12, value=kool_plastic)
+                if order == 10:
+                    d200 = float(input('Enter no. of Dahi - 200ml: \n'))
+                    sh4.cell(row=row1, column=13, value=d200)
+                if order == 11:
+                    d400 = float(input('Enter no. of Dahi - 400ml: \n'))
+                    sh4.cell(row=row1, column=14, value=d400)
+                if order == 12:
+                    d1000 = float(input('Enter no. of Dahi - 1KG: \n'))
+                    sh4.cell(row=row1, column=15, value=d1000)
+                if order == 13:
+                    lp180 = float(input('Enter no. of Lassi(Packet) - 180ml: \n'))
+                    sh4.cell(row=row1, column=16, value=lp180)
+                if order == 14:
+                    p200 = float(input('Enter no. of Paneer - 200g: \n'))
+                    sh4.cell(row=row1, column=17, value=p200)
+                if order == 15:
+                    p1000 = float(input('Enter no. of Paneer - 1KG: \n'))
+                    sh4.cell(row=row1, column=18, value=p1000)
+                skip = input('More Orders from ' + sh4_list[ans4][1] + '? [Y/N]')
+                if (skip.upper() == "Y") or (skip == "1"):
+                    count3 = 0
+                else:
+                    try:
+                        wb.save("Excel Files/" + excel_path)
+                        print('Saved')
+                    except:
+                        print(Color.RED + 'Close excel if open.' + Color.END)
+                    count3 = 1
+
+                    if sh4.cell(row1, 4) != 0:
+                        print('Calculating Cost...')
+                        cost_of_order = g500 * rate[0][2] + g1000 * rate[1][2] + s500 * rate[2][2] + s1000 * rate[3][
+                            2] + c500 * rate[4][2] + c1000 * rate[5][2] + t500 * rate[6][2] + t1000 * rate[7][
+                                            2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
+                                            2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
+                                            2] + p1000 * rate[14][2]
+                        print(cost_of_order)
+                    break
+
+            count += 1
+
+        else:
+            print('Attempts Exceeded, Try Again')
 
 else:
     print('Great, ' + name)
