@@ -21,16 +21,23 @@ try:
     import pyfiglet as art
     import openpyxl as excel
     from sys import exit
+    from twilio.rest import Client
 except:
-    print(Color.BOLD + 'ERROR\n' + Color.END + 'Python Packages not found!')
-    print("\nInstall Python Packages to get started")
+    print(Color.RED + Color.BOLD + 'ERROR:\nPython Packages not found!' + Color.END)
+    print("\nInstall Python Packages to get started!")
     exit()
 
 name = str(input("\nEnter your name:"))
 name = name.capitalize()
 print('\nHi,', Color.BOLD + name.capitalize() + Color.END)
 
-passcode = 0x75AB  # Password in Hex ('0x' - tells python, value is in hex)
+# SMS API Integration with Twilio Trial
+sendto = "+91" + input('\nEnter your phone number:')
+sid = 'ACc514b4800253a9b8c56867d650b2e8d2'
+auth_token = '28c895b0ac12186bbdc2c2b95ffd2168'
+client = Client(sid, auth_token)
+
+passcode = 0x75AB  # Password in HEX ('0x' - tells python value is in hex)
 
 count = 0  # Count user's invalid attempts
 user_pass = ""  # Value received by user
@@ -58,6 +65,8 @@ while user_pass != passcode and count < 3:  # Ask password from user thrice
 
 print(Color.BOLD + 'WELCOME TO BILLING MACHINE, ' + name.upper() + Color.END)
 
+resp = client.messages.create(body="Welcome to Sahil's program, "+name.capitalize(), from_='+13126754624', to=sendto)
+
 rate = [['Gold', '500ml', 26.18],
         ['Gold', '1L', 51.35],
         ['Shakti', '500ml', 23.20],
@@ -73,7 +82,7 @@ rate = [['Gold', '500ml', 26.18],
         ['Lassi (Packet)', '180ml', 9.10],
         ['Paneer', '200g', 66.00],
         ['Paneer', '1KG', 315.00]
-        ]  # Rate if products
+        ]  # Rate of products
 
 ans1 = input('Want to know rates? [Y/N] \n')
 if (ans1.upper() == "Y") or (ans1 == "1"):
@@ -83,23 +92,19 @@ else:
     print('Okay,', name, ':)')
 
 ans2 = input('\nWant to start billing machine? [Y/N] \n')
+
 if (ans2.upper() == "Y") or (ans2 == "1"):
-    try:
-        for i in progressbar(range(10),
-                             desc='Opening with superfast speed',
-                             ascii=False, ncols=75):
-            time.sleep(0.25)
-        print("Complete.\n")
-    except:
-        print(Color.RED + "\nERROR ~~ 'tqdm' package not found\nSkipping progress bar visualization\n\n" + Color.END)
+
+    # Progress Bar for vibes...
+    for i in progressbar(range(10),
+                         desc='Opening with superfast speed',
+                         ascii=False, ncols=75):
+        time.sleep(0.25)
+    print("Complete.\n")
 
     # Let's create art
-    try:
-        banner = art.figlet_format("WELCOME TO SOFTLINE AMUL BILLING", font="digital")
-        print(Color.BOLD + Color.GREEN + banner + Color.END)
-    except:
-        print(Color.RED + "\nERROR ~~ 'pyfiglet' package not found\nSkipping art visualization\n\n" + Color.END)
-        print('Opening Billing Machine...')
+    banner = art.figlet_format("WELCOME TO SOFTLINE AMUL BILLING", font="digital")
+    print(Color.BOLD + Color.GREEN + banner + Color.END)
 
     # Excel Connection Starts Here!
     print('Connect to EXCEL of date:\n')
@@ -118,7 +123,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
         dat = manual_date = str(input("\nEnter Date Manually (DD-MM-YYYY):"))
     if ans3 == 4:
         dat = "15-06-2021"
-        print("Sample Excel File Date is: "+ dat)
+        print("Sample Excel File Date is: " + dat)
         print("Connecting...\n")
     try:
         excel_path = 'O-' + dat + '.xlsx'
@@ -138,7 +143,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
         sh4 = wb['A4 MARAI']
         print(Color.BLUE + Color.BOLD + 'File successfully connected.\n' + Color.END)
     except:
-        print(Color.RED + "ERROR: File path is invalid!" + Color.END)
+        print(Color.RED + "ERROR:\n File is invalid!" + Color.END)
 
     # After Excel Connected
     date_order_sheet = sh1["L1"].value
@@ -161,22 +166,26 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
     column = 1
     count = 1
 
-    sh1_list = []
-    unnecessary_sh1 = []
-    while row < 33:
-        sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value])
-        row += 1
-        count += 1
-
-    print(tabulate(sh1_list, headers=["SN No.", "Store", "Phone No."]))
     if sh == 1:
         print('\nConnected to', sh1)
         sh1_list = []
-        unnecessary_sh1 = []
         while row < 33:
             sh1_list.append([count, sh1.cell(row, 2).value, sh1.cell(row, 3).value])
             row += 1
             count += 1
+        print(tabulate(sh1_list, headers=["SN No.", "Store", "Phone No."]))
+
+        count = 0
+        while count < 30:
+            ans4 = int(input('\nENTER NUMBER: \n')) - 1
+            resp = client.messages.create(body="\nStore: " + str(sh1_list[ans4][1]) + "\nCall: " + str(sh1_list[ans4][2]),
+                                          from_='+13126754624', to=sendto)
+            print('---NOTIFICATION SENT')
+
+
+        else:
+            print('Attempts Exceeded, Try Again')
+
     if sh == 2:
         print('Connected to', sh2)
         while row < 33:
