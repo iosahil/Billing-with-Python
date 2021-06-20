@@ -388,7 +388,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                 else:
                     try:
                         wb.save("Excel Files/" + excel_path)
-                        print('Saved')
+                        print(Color.GREEN+Color.BOLD+'\nSAVED\n'+Color.END)
                     except:
                         print(Color.RED + 'Close excel if open.' + Color.END)
                     count3 = 1
@@ -400,7 +400,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                             2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
                                             2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
                                             2] + p1000 * rate[14][2]
-                        print(cost_of_order)
+                        print(Color.BLUE+Color.BOLD+cost_of_order+Color.END)
                     break
 
             count += 1
@@ -505,7 +505,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                 else:
                     try:
                         wb.save("Excel Files/" + excel_path)
-                        print('Saved')
+                        print(Color.GREEN+Color.BOLD+'\nSAVED\n'+Color.END)
                     except:
                         print(Color.RED + 'Close excel if open.' + Color.END)
                     count3 = 1
@@ -517,7 +517,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                             2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
                                             2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
                                             2] + p1000 * rate[14][2]
-                        print(cost_of_order)
+                        print(Color.BLUE+Color.BOLD+cost_of_order+Color.END)
                     break
 
             count += 1
@@ -622,7 +622,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                 else:
                     try:
                         wb.save("Excel Files/" + excel_path)
-                        print('Saved')
+                        print(Color.GREEN+Color.BOLD+'\nSAVED\n'+Color.END)
                     except:
                         print(Color.RED + 'Close excel if open.' + Color.END)
                     count3 = 1
@@ -634,7 +634,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                             2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
                                             2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
                                             2] + p1000 * rate[14][2]
-                        print(cost_of_order)
+                        print(Color.BLUE+Color.BOLD+cost_of_order+Color.END)
                     break
 
             count += 1
