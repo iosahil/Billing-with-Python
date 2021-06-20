@@ -34,7 +34,7 @@ print('\nHi,', Color.BOLD + name.capitalize() + Color.END)
 # SMS API Integration with Twilio Trial
 sendto = "+91" + input('\nEnter your phone number:')
 sid = 'ACc514b4800253a9b8c56867d650b2e8d2'
-auth_token = '28c895b0ac12186bbdc2c2b95ffd2168'
+auth_token = 'a124c1390016e1e505856a7b66b02889'
 client = Client(sid, auth_token)
 
 passcode = 0x75AB  # Password in HEX ('0x' - tells python value is in hex)
@@ -60,7 +60,7 @@ while user_pass != passcode and count < 3:  # Ask password from user thrice
         if count == 3:
             print('Let the brain rest,', name.lower(), ':)')
             print(Color.BOLD + 'USER LOCKED OUT!!' + Color.END)
-            resp = client.messages.create(body="Suspicious User Found in Amul Billing!\nName: " + name.capitalize()+'\nPhone: ' + sendto, from_='+13126754624',to='+919931004934')
+            resp = client.messages.create(body="Suspicious User Found in Amul Billing!\nName:" + name.capitalize()+'\nPhone:' + sendto, from_='+13126754624',to='+919931004934')
             exit()
             # Throws user out of script
 
@@ -269,7 +269,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                 else:
                     try:
                         wb.save("Excel Files/" + excel_path)
-                        print('Saved')
+                        print(Color.GREEN+Color.BOLD+'\nSAVED\n'+Color.END)
                     except:
                         print(Color.RED + 'Close excel if open.' + Color.END)
                     count3 = 1
@@ -281,7 +281,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                             2] + kool_plastic * rate[8][2] + d200 * rate[9][2] + d400 * rate[10][
                                             2] + d1000 * rate[11][2] + lp180 * rate[12][2] + p200 * rate[13][
                                             2] + p1000 * rate[14][2]
-                        print(cost_of_order)
+                        print(Color.BLUE+Color.BOLD+cost_of_order+Color.END)
                     break
 
             count += 1
