@@ -22,7 +22,7 @@ try:
     import openpyxl as excel
     from sys import exit
     from twilio.rest import Client
-except:
+except:  
     print(Color.RED + Color.BOLD + 'ERROR:\nPython Packages not found!' +
           Color.END)
     print("\nInstall Python Packages to get started!")
@@ -309,7 +309,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                                         2] + p200 * rate[13][
                                                             2] + p1000 * rate[
                                                                 14][2]
-                        print(Color.BLUE + Color.BOLD + cost_of_order +
+                        print(Color.BLUE + Color.BOLD + str(cost_of_order) +
                               Color.END)
                     break
 
@@ -448,7 +448,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                                         2] + p200 * rate[13][
                                                             2] + p1000 * rate[
                                                                 14][2]
-                        print(Color.BLUE + Color.BOLD + cost_of_order +
+                        print(Color.BLUE + Color.BOLD + str(cost_of_order) +
                               Color.END)
                     break
 
@@ -585,7 +585,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                                         2] + p200 * rate[13][
                                                             2] + p1000 * rate[
                                                                 14][2]
-                        print(Color.BLUE + Color.BOLD + cost_of_order +
+                        print(Color.BLUE + Color.BOLD + str(cost_of_order) +
                               Color.END)
                     break
 
@@ -722,7 +722,7 @@ if (ans2.upper() == "Y") or (ans2 == "1"):
                                                         2] + p200 * rate[13][
                                                             2] + p1000 * rate[
                                                                 14][2]
-                        print(Color.BLUE + Color.BOLD + cost_of_order +
+                        print(Color.BLUE + Color.BOLD + str(cost_of_order) +
                               Color.END)
                     break
 
